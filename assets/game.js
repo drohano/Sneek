@@ -57,17 +57,19 @@ var Game = {
     update : function() {
 
         //Is called constantly at a high rate(around 60 fps)
-        //updadeing the field every time
-        if (cursors.right.isDown && direction != 'left'){
+
+        //updateing the field every time
+
+        if (cursors.right.isDown && direction!= 'left'){
             new_direction = 'right';
         }
-        else if (cursors.left.isDown && direction != 'right'){
+        else if (cursors.left.isDown && direction!= 'right'){
             new_direction = 'left';
         }
-        else if (cursors.up.isDown && direction != 'down'){
+        else if (cursors.up.isDown && direction!= 'down'){
             new_direction = 'up';
         }
-        else if (cursors.down.isDown && direction != 'up'){
+        else if (cursors.down.isDown && direction!= 'up'){
             new_direction = 'down';
         }
 
@@ -146,13 +148,16 @@ var Game = {
         //check if sneek is overlaping the apple
 
         for (var i = 0; i < snake.length; i++ ){
-            if (snake[i].x == apple.x && apple.y){
+            if (snake[i].x == apple.x && snake[i].y == apple.y){
 
                 //Next time the snake moves, a block will be added to its length
                 addNew = true;
 
                 //MURDER the old apple
-                apple.detsroy();
+                apple.destroy();
+
+                //make a new one
+                this.generateApple();
 
                 //score +
                 score++;
@@ -172,7 +177,7 @@ var Game = {
             }
         }
     },
-    wallCollision : function() {
+    wallCollision : function(head) {
         //check if head of sneek is in game field
 
         if (head.x >= 600 || head.x < 0 || head.y >= 450 || head.y < 0){
